@@ -15,9 +15,15 @@ fetch("https://cdn.freecodecamp.org/curriculum/news-author-page/authors.json")
         console.error(`There was an error: ${err}`);
     });
 
-    const displayAuthors = (authors) => {
-        authors.forEach(({ author, image, url, bio }, index) => {
-            authorContainer.innerHTML += `
+const fetchMoreAuthors = () => {
+    startingIndex += 8
+    endingIndex += 8
+    displayAuthors(authorDataArr.slice(startingIndex, endingIndex))
+}
+
+const displayAuthors = (authors) => {
+    authors.forEach(({ author, image, url, bio }, index) => {
+        authorContainer.innerHTML += `
                 <div id=${index} class="user-card">
                     <h2 class="author-name">${author}</h2>
                     <img class="user-img" src="${image}" alt="${author} avatar">
@@ -25,5 +31,7 @@ fetch("https://cdn.freecodecamp.org/curriculum/news-author-page/authors.json")
                     <a class="author-link" href="${url}" target="_blank">${author}'s author page</a>
                 </div>
             `
-        })
-    }
+    })
+}
+
+loadMoreBtn.addEventListener("click", fetchMoreAuthors)
